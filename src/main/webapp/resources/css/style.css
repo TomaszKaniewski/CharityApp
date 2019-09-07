@@ -439,6 +439,8 @@ h2:after {
 
 /* line 30, scss/modules/_base.scss */
 .container--70 {
+  position: fixed;
+  background-color: #ffffff;
   width: 70vw;
 }
 
