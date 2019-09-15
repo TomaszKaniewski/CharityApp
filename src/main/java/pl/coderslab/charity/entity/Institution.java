@@ -3,7 +3,7 @@ package pl.coderslab.charity.entity;
 import javax.persistence.*;
 
 @Entity
-@Table (name="intitutions")
+@Table (name="institutions")
 public class Institution {
 
     @Id

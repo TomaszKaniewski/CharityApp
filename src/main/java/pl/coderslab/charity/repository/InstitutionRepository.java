@@ -7,5 +7,6 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
+
 }
 

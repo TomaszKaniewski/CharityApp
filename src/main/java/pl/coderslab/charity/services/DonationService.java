@@ -11,4 +11,9 @@ public class DonationService {
     public DonationService(DonationRepository donationRepository) {
         this.donationRepository = donationRepository;
     }
+
+    public int donationAmount() {
+        return donationRepository.donationAmount();
+    }
+
 }

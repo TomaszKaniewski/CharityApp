@@ -2,7 +2,10 @@ package pl.coderslab.charity.services;
 
 import org.springframework.stereotype.Service;
 
+import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
+
+import java.util.List;
 
 @Service
 public class InstitutionService {
@@ -11,5 +14,9 @@ public class InstitutionService {
 
     public InstitutionService(InstitutionRepository institutionRepository) {
         this.institutionRepository = institutionRepository;
+    }
+
+    public List<Institution> showAllInstitution() {
+        return institutionRepository.findAll();
     }
 }
