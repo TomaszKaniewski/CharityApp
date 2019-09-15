@@ -2,3 +2,5 @@ insert into institutions (name, description) values ("Dbam o zdrowie", "Pomoc dz
 insert into institutions (name, description) values ("A kogo", "Pomoc wybudzaniu dzieci ze śpiączki.")
 insert into institutions (name, description) values ("Dla dzieci", "Pomoc osobom znajdującym się w trudnej sytuacji życiowej.")
 insert into institutions (name, description) values ("Bez domu", "Pomoc dla osób nie posiadających miejsca zamieszkania.")
+
+insert into donations (quantity, street, city, zipCode, pickUpDate, pickUpTime, pickUpComment, institution_id) values (10, "Olszynki Grochowskiej", "61", "01-309", "2019-01-01", "12:50", "Ubrania dla dzieci",1);
