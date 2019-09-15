@@ -2,7 +2,7 @@
 
 <header class="header--main-page">
 
-    <nav class="container container--70">
+    <nav class="container container--70 top-menu">
 
         <%--<ul class="nav--actions">--%>
         <%--<li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>--%>
