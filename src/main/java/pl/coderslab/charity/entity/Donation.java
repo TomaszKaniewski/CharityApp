@@ -16,7 +16,10 @@ public class Donation {
 
     private int quantity;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name = "donations_categories",
+            joinColumns = @JoinColumn(name = "donations_id"),
+            inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private List<Category> categoryList;
 
     @ManyToOne
@@ -36,7 +39,7 @@ public class Donation {
     @Temporal(TemporalType.TIME)
     private Date pickUpTime;
 
-    private  String pickUpComment;
+    private String pickUpComment;
 
     public Long getId() {
         return id;
