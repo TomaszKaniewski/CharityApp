@@ -13,10 +13,15 @@ public class DonationService {
     }
 
     public int donationAmount() {
-        return donationRepository.donationAmount();
+
+        try {
+            return donationRepository.donationAmount();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
-    public int numberOfSupportdIstitutions() {
+    public int numberOfSupportedIstitutions() {
         return donationRepository.numberOfSupportedIntitutions();
     }
 }
