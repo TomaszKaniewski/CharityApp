@@ -64,7 +64,7 @@
     <a href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
-<section class="about-us">
+<section id="onas" class="about-us">
     <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
@@ -76,6 +76,7 @@
     </div>
 </section>
 
+<a id="organizacje"></a>
 <section class="help">
     <h2>Komu pomagamy?</h2>
 
@@ -86,12 +87,16 @@
 
         <ul class="help--slides-items">
             <c:forEach items="${institutions}" var="institution" varStatus="counter">
-            <li>
+                <c:if test="${counter.count % 2 != 0}">
+                    <li>
+                </c:if>
                 <div class="col">
                     <div class="title">Fundacja "${institution.name}"</div>
                     <div class="subtitle">Cel i misja: "${institution.description}"</div>
                 </div>
-            </li>
+                <c:if test="${counter.count % 2 == 0}">
+                    </li>
+                </c:if>
             </c:forEach>
         </ul>
     </div>
