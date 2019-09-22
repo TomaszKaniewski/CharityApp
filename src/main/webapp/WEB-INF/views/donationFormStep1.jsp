@@ -40,6 +40,9 @@
                         </label>
                     </div>
                 </c:forEach>
+                <c:if test="${error =='noCategorySelectedError'}">
+                    <h1 style="color: red" >Nie wybrano kategorii</h1>
+                </c:if>
                 <div class="form-group form-group--buttons">
                     <button type="submit" class="btn">Dalej</button>
                 </div>
