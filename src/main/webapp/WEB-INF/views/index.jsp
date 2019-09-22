@@ -8,9 +8,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
-
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    <title>Document</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -35,6 +34,7 @@
     </div>
 </section>
 
+<a id="steps"></a>
 <section class="steps">
     <h2>Wystarczą 4 proste kroki</h2>
 
