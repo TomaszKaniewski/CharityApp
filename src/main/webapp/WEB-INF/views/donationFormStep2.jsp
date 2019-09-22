@@ -34,13 +34,18 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <input type="number" name="bags" step="1" min="1"/>
+                        <input type="number" name="bags" step="1" min="1" max="100"/>
                     </label>
                 </div>
-
+                <c:if test="${error =='amountError'}">
+                    <h1 style="color: red" >Proszę podać liczbę z zakresu 1 - 100</h1>
+                </c:if>
+                <c:if test="${error =='emptyFieldError'}">
+                    <h1 style="color: red" >Proszę wybrać liczbę worków</h1>
+                </c:if>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <button type="submit" class="btn">Dalej</button>
                 </div>
             </div>
 
