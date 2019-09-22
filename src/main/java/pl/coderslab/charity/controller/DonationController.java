@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"dataInSession"})
+@SessionAttributes({"dataSavedInSession"})
 @RequestMapping("/donation")
 public class DonationController {
 
@@ -40,32 +40,79 @@ public class DonationController {
     }
 
     @PostMapping("/donationFormStep1")
-    public String donationAction1(@RequestParam(value = "category") Long [] categoriesFromForm, HttpSession session) {
+    public String donationAction1(@RequestParam(value = "category", required = false) Long[] category, HttpSession session, Model model) {
+        if (category == null) {
+            model.addAttribute("error", "noCategorySelectedError");
+            return "/donationFormStep1";
+        }
         Donation donation = new Donation();
-        List <Category> categoriesList = new ArrayList<>();
-                for (Long el : categoriesFromForm) {
+        List<Category> categoriesList = new ArrayList<>();
+        for (Long el : category) {
             categoriesList.add(categoryService.getCategoryById(el));
         }
         donation.setCategoryList(categoriesList);
-        for (Category el : donation.getCategoryList()) {
-            System.out.println(el.toString());
-        }
-        session.setAttribute("dataInSession", donation);
+        session.setAttribute("dataSavedInSession", donation);
         return "redirect: donationFormStep2";
     }
 
     @GetMapping("/donationFormStep2")
-    public String donationAction2(Model model) {
-         return "donationFormStep2";
+    public String donationAction2() {
+        return "donationFormStep2";
     }
 
+    @PostMapping("/donationFormStep2")
+    public String donationAction1(@RequestParam(value = "bags", required = false) String bags, HttpSession session, Model model) {
+        int bagsAmount;
+        try {
+            bagsAmount = Integer.parseInt(bags);
+        } catch (Exception e) {
+            model.addAttribute("error", "emptyFieldError");
+            return "/donationFormStep2";
+        }
+        if (bagsAmount == 0 || bagsAmount > 100) {
+            model.addAttribute("error", "amountError");
+            return "/donationFormStep2";
+        }
+
+        Donation donation = (Donation) session.getAttribute("dataSavedInSession");
+        donation.setQuantity(bagsAmount);
+        session.setAttribute("dataSavedInSession", donation);
+        return "redirect: donationFormStep3";
+    }
+
+    @GetMapping("/donationFormStep3")
+    public String donationAction3(Model model) {
+        return "donationFormStep3";
+    }
+
+    @PostMapping("/donationFormStep3")
+    public String donationAction3(@RequestParam(value = "institution", required = false) Long institution, HttpSession session, Model model) {
+        if (institution == null) {
+            model.addAttribute("error", "noInstitutionSelectedError");
+            return "/donationFormStep3";
+        }
+        Donation donation = (Donation) session.getAttribute("dataSavedInSession");
+        donation.setInstitution(institutionService.getIntitutionById(institution));
+        session.setAttribute("dataInSession", donation);
+        return "redirect: donationFormStep4";
+    }
+
+    @GetMapping("/donationFormStep4")
+    public String donationAction4(Model model) {
+        return "donationFormStep4";
+    }
+
+    @PostMapping("/donationFormStep4")
+    public String donationAction4(HttpSession session, Model model) {
+        return "redirect: donationFormStep4";
+    }
 
     @ModelAttribute("categories")
     List<Category> categoryList() {
         return categoryService.getCategories();
     }
 
-    @ModelAttribute("intitutions")
+    @ModelAttribute("institutions")
     List<Institution> institutionList() {
         return institutionService.showAllInstitution();
     }
