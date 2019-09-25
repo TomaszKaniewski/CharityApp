@@ -1,79 +1,39 @@
-package pl.coderslab.charity.entity;
+package pl.coderslab.charity.model;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "donations")
-public class Donation {
+@Component
+public class DonationStep4 {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private int quantity;
-
-    @ManyToMany
-    @JoinTable(name = "donations_categories",
-            joinColumns = @JoinColumn(name = "donations_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id"))
-    private List<Category> categoryList;
-
-    @ManyToOne
-    private Institution institution;
-
+    @NotBlank(message = "Pole nie może być puste")
     private String street;
 
+    @NotBlank(message = "Pole nie może być puste")
     private String city;
 
+//    @NotBlank(message = "Pole nie może być puste")
+    @Pattern(regexp = "\\d{2}-\\d{3}", message = "Wprowadź kod w postaci: xx-xxx")
     private String zipCode;
 
+    @NotNull(message = "Proszę podać datę odbioru")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
     private Date pickUpDate;
 
+    @NotNull(message = "Proszę podać godzinę odbioru")
     @DateTimeFormat(pattern = "HH:mm")
-    @Temporal(TemporalType.TIME)
     private Date pickUpTime;
 
     private String pickUpComment;
 
+//    @NotBlank(message = "Proszę podać numer telefonu")
+    @Pattern(regexp = "\\d{9}", message = "Proszę podać poprawny numer telefonu")
     private String phoneNumber;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
 
     public String getStreet() {
         return street;
@@ -131,4 +91,3 @@ public class Donation {
         this.phoneNumber = phoneNumber;
     }
 }
-

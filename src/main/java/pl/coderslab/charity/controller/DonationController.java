@@ -2,15 +2,18 @@ package pl.coderslab.charity.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
+import pl.coderslab.charity.model.DonationStep4;
 import pl.coderslab.charity.services.CategoryService;
 import pl.coderslab.charity.services.DonationService;
 import pl.coderslab.charity.services.InstitutionService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +25,13 @@ public class DonationController {
     private final InstitutionService institutionService;
     private final DonationService donationService;
     private final CategoryService categoryService;
+    private final DonationStep4 donationStep4;
 
-    public DonationController(InstitutionService institutionService, DonationService donationService, CategoryService categoryService) {
+    public DonationController(InstitutionService institutionService, DonationService donationService, CategoryService categoryService, DonationStep4 donationStep4) {
         this.institutionService = institutionService;
         this.donationService = donationService;
         this.categoryService = categoryService;
+        this.donationStep4 = donationStep4;
     }
 
     @RequestMapping("")
@@ -81,7 +86,7 @@ public class DonationController {
     }
 
     @GetMapping("/donationFormStep3")
-    public String donationAction3(Model model) {
+    public String donationAction3() {
         return "donationFormStep3";
     }
 
@@ -99,12 +104,28 @@ public class DonationController {
 
     @GetMapping("/donationFormStep4")
     public String donationAction4(Model model) {
+        model.addAttribute("donationStep4", new DonationStep4());
         return "donationFormStep4";
     }
 
     @PostMapping("/donationFormStep4")
-    public String donationAction4(HttpSession session, Model model) {
-        return "redirect: donationFormStep4";
+    public String donationAction4(@ModelAttribute ("donationStep4") @Valid DonationStep4 donationStep4, BindingResult bindingResult, HttpSession session){
+        if(bindingResult.hasErrors()){
+            return "donationFormStep4";
+        }
+        Donation donation = (Donation) session.getAttribute("dataSavedInSession");
+
+        donation.setCity(donationStep4.getCity());
+        donation.setStreet(donationStep4.getStreet());
+        donation.setZipCode(donationStep4.getZipCode());
+        donation.setPickUpDate(donationStep4.getPickUpDate());
+        donation.setPickUpTime(donationStep4.getPickUpTime());
+        donation.setPhoneNumber(donationStep4.getPhoneNumber());
+        donation.setPickUpComment(donationStep4.getPickUpComment());
+
+        session.setAttribute("dataInSession", donation);
+        System.out.println("aaa");
+        return "summary";
     }
 
     @ModelAttribute("categories")
