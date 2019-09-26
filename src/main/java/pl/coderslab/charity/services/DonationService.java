@@ -21,7 +21,7 @@ public class DonationService {
         }
     }
 
-    public int numberOfSupportedIstitutions() {
+    public int numberOfSupportedInstitutions() {
         return donationRepository.numberOfSupportedIntitutions();
     }
 }
