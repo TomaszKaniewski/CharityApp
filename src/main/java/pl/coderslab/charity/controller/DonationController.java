@@ -125,7 +125,27 @@ public class DonationController {
 
         session.setAttribute("dataInSession", donation);
         System.out.println("aaa");
+        return "redirect:/donation/summary";
+    }
+
+    @GetMapping("/summary")
+    public String donationAction5(HttpSession session, Model model) {
+        Donation donation = (Donation) session.getAttribute("dataInSession");
+        model.addAttribute("donationDetails", donation);
         return "summary";
+    }
+
+    @PostMapping("/summary")
+    public String donationAction5(HttpSession session) {
+
+        //zapis do bazy
+
+        return "redirect:/donation/confirmation";
+    }
+
+    @GetMapping("/confirmation")
+    public String donationAction6() {
+        return "confirmation";
     }
 
     @ModelAttribute("categories")
