@@ -1,6 +1,7 @@
 package pl.coderslab.charity.services;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 
 @Service
@@ -23,5 +24,9 @@ public class DonationService {
 
     public int numberOfSupportedInstitutions() {
         return donationRepository.numberOfSupportedIntitutions();
+    }
+
+    public void saveDonation(Donation donation) {
+        donationRepository.save(donation);
     }
 }

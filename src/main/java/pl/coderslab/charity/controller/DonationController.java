@@ -137,9 +137,8 @@ public class DonationController {
 
     @PostMapping("/summary")
     public String donationAction5(HttpSession session) {
-
-        //zapis do bazy
-
+        Donation donation = (Donation) session.getAttribute("dataInSession");
+        donationService.saveDonation(donation);
         return "redirect:/donation/confirmation";
     }
 
